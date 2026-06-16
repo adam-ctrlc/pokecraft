@@ -74,7 +74,7 @@ export default function Home() {
 
           <p className="text-stone-300 text-base md:text-xl mb-12 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
             The ultimate blocky guide to the Pokemon universe. Discover species,
-            stats, type matchups and lore — all in one pixelated Pokedex.
+            stats, type matchups and lore - all in one pixelated Pokedex.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center">

@@ -13,14 +13,14 @@ All Pokemon data comes from the [PokeAPI](https://pokeapi.co/), proxied and cach
 ### Pokedex Wiki (`/wiki/[page]`)
 
 - Paginated grid of the full national dex (20 per page) with name/ID search.
-- **Type filter** and **region/generation filter** — custom pixel-themed dropdowns. Selections persist across pagination and navigation via `sessionStorage`.
-- Cards display each Pokemon's **types**, **generation** (I–IX), and **region** (Kanto–Paldea).
+- **Type filter** and **region/generation filter** - custom pixel-themed dropdowns. Selections persist across pagination and navigation via `sessionStorage`.
+- Cards display each Pokemon's **types**, **generation** (I-IX), and **region** (Kanto-Paldea).
 
 ### Pokemon detail (`/pokemon/[id]`)
 
 - Tabbed layout: **About** (Pokedex entry, height/weight, abilities), **Stats** (pixel segmented base-stat bars + total), and **Evolution** (clickable evolution chain).
-- **Combat Analysis** — weaknesses and strengths broken down by type, each with example Pokemon.
-- **Custom cry player** — a pixel-styled audio player with a waveform progress bar.
+- **Combat Analysis** - weaknesses and strengths broken down by type, each with example Pokemon.
+- **Custom cry player** - a pixel-styled audio player with a waveform progress bar.
 - Skeleton loading states (no spinners).
 
 ### 3D / Pixel sprite toggle
@@ -30,10 +30,10 @@ All Pokemon data comes from the [PokeAPI](https://pokeapi.co/), proxied and cach
 ### Battle Arena (`/battle`)
 
 - Build a team at **1v1, 3v3, or 6v6**. Add Pokemon via a searchable picker, **drag to reorder** (slot 1 leads), and remove individually.
-- **Auto Pick** / **Auto Counter-Pick** — the system fills a team by choosing Pokemon whose types counter the opposing team (falling back to random), and is re-rollable.
+- **Auto Pick** / **Auto Counter-Pick** - the system fills a team by choosing Pokemon whose types counter the opposing team (falling back to random), and is re-rollable.
 - Battles resolve as a **sequential bracket**: leads fight, the loser is eliminated, the winner stays. Each duel is decided by **type effectiveness + base-stat total**, and the log explains *why* ("super-effective", "higher base stats", etc.).
-- The fight plays out **inline** as an **animated pixel battle scene** — back/front sprites on grassy platforms, HP bars, fainting animations, party trays showing status, and a click-through dialog box.
-- **15 selectable biomes** (Meadow, Morning, Night, Snow, Desert, Sakura, Autumn, Sunset, Twilight, Volcano, Swamp, Beach, Cave, Cosmic, Rainy) — each with themed skies, foliage (trees/pines/cacti/palms/rocks/dead trees), a sun or moon, stars, and weather particles (snow, petals, embers, rain).
+- The fight plays out **inline** as an **animated pixel battle scene** - back/front sprites on grassy platforms, HP bars, fainting animations, party trays showing status, and a click-through dialog box.
+- **15 selectable biomes** (Meadow, Morning, Night, Snow, Desert, Sakura, Autumn, Sunset, Twilight, Volcano, Swamp, Beach, Cave, Cosmic, Rainy) - each with themed skies, foliage (trees/pines/cacti/palms/rocks/dead trees), a sun or moon, stars, and weather particles (snow, petals, embers, rain).
 
 ## Routes
 
@@ -67,7 +67,7 @@ src/
 │   ├── battle/                  # Battle Arena + _components (scene, field, trays, pickers, biome select)
 │   └── api/v1/                  # Internal API routes that proxy + cache PokeAPI
 ├── components/                  # Shared UI (Header, PokemonCard, Select, *Select, SpriteToggle)
-├── config/                      # pokeapi.js, sprites.js, biomes.js — all external URLs/assets live here
+├── config/                      # pokeapi.js, sprites.js, biomes.js - all external URLs/assets live here
 └── utils/                       # Helpers + hooks (typeColors, generation, battle, pokeapi, fetcher, hooks)
 ```
 

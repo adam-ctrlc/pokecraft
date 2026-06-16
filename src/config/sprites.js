@@ -12,7 +12,7 @@ export const pixelSprite = (id) =>
 /** Animated "3D" Showdown sprite (GIF). */
 export const showdownGif = (id) => `${SPRITE_BASE}/other/showdown/${id}.gif`;
 
-/** Animated Showdown back sprite (GIF) — for the player's side in battle. */
+/** Animated Showdown back sprite (GIF) - for the player's side in battle. */
 export const showdownBackGif = (id) =>
   `${SPRITE_BASE}/other/showdown/back/${id}.gif`;
 

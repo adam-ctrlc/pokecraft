@@ -24,7 +24,7 @@ export default function PokemonCard({ pokemon, view = "3d" }) {
         {gen && (
           <div
             className="absolute top-2 right-2 z-10 bg-yellow-500 text-black px-2 py-1 text-[10px] font-bold border-2 border-stone-900"
-            title={`Generation ${gen.roman} — ${gen.region}`}
+            title={`Generation ${gen.roman} - ${gen.region}`}
           >
             {gen.roman}
           </div>

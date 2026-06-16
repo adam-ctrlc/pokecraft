@@ -51,7 +51,7 @@ export function resolveDuel(a, b) {
   if (winAdv > loseAdv && seTypes.length) {
     detail = `${label(winner)}'s ${seTypes.join("/")} ${
       seTypes.length > 1 ? "types are" : "type is"
-    } super-effective against ${label(loser)} — it can't keep up.`;
+    } super-effective against ${label(loser)} - it can't keep up.`;
   } else if (winAdv > loseAdv) {
     detail = `${label(winner)} held the better type matchup against ${label(
       loser
@@ -61,7 +61,7 @@ export function resolveDuel(a, b) {
       winner
     )} overpowered it with far higher stats (${wBST} vs ${lBST}).`;
   } else {
-    detail = `No type advantage either way — ${label(
+    detail = `No type advantage either way - ${label(
       winner
     )} won on raw power (${wBST} vs ${lBST} base stats).`;
   }

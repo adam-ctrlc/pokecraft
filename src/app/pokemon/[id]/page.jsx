@@ -247,7 +247,7 @@ export default function PokemonDetail({ params }) {
             {/* ABOUT TAB */}
             {activeTab === "about" && (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
-                {/* Pokedex Entry — device screen */}
+                {/* Pokedex Entry - device screen */}
                 <div>
                   <div className="flex items-center gap-2 mb-3 text-stone-400">
                     <BookOpen className="w-5 h-5" />
@@ -366,7 +366,7 @@ export default function PokemonDetail({ params }) {
                   })}
                 </ul>
 
-                {/* Total — pixel block */}
+                {/* Total - pixel block */}
                 <div className="mt-6 flex items-center justify-between bg-stone-800 border-4 border-stone-600 p-3 shadow-[4px_4px_0_rgba(0,0,0,0.4)]">
                   <span className="text-sm uppercase tracking-widest text-stone-300">
                     Total

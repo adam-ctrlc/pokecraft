@@ -100,7 +100,7 @@ body {
   animation: fall-straight linear infinite;
 }
 
-/* Classic Pokemon logo font — yellow fill with blue outline */
+/* Classic Pokemon logo font - yellow fill with blue outline */
 .font-pokemon {
   font-family: "Pokemon Solid", var(--font-minecraft), sans-serif;
   color: #ffcb05;

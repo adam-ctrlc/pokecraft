@@ -47,7 +47,7 @@ export default function CryPlayer({ src, name }) {
       <div className="flex items-center gap-2 mb-3 text-stone-400">
         <Volume2 className="w-4 h-4" />
         <span className="text-[10px] uppercase tracking-widest">
-          {name} — Cry
+          {name} - Cry
         </span>
       </div>
 

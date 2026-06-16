@@ -27,7 +27,7 @@ function Pagination({ page, totalPages, range, hasNext, onChange }) {
         Prev
       </button>
 
-      {/* Number buttons — hidden on small screens to avoid wrapping */}
+      {/* Number buttons - hidden on small screens to avoid wrapping */}
       <div className="hidden sm:flex gap-2 items-center">
         {range.map((p) => (
           <button
@@ -56,7 +56,7 @@ function Pagination({ page, totalPages, range, hasNext, onChange }) {
         )}
       </div>
 
-      {/* Compact indicator — shown on small screens only */}
+      {/* Compact indicator - shown on small screens only */}
       <span className="sm:hidden h-11 inline-flex items-center px-4 bg-stone-900 border-2 border-stone-700 text-stone-300 font-mono text-sm">
         {page} / {totalPages}
       </span>
@@ -167,7 +167,7 @@ export default function WikiClient({ page }) {
               <span className="text-yellow-400">
                 {totalCount.toLocaleString()}
               </span>{" "}
-              known specimens — page{" "}
+              known specimens - page{" "}
               <span className="text-yellow-400">{page}</span> of {totalPages}
             </>
           )}
@@ -263,7 +263,7 @@ export default function WikiClient({ page }) {
               </h3>
               <p className="text-stone-600 text-sm">
                 {filteredOut
-                  ? "Nothing matches these filters here — try another page or adjust the filters."
+                  ? "Nothing matches these filters here - try another page or adjust the filters."
                   : "Try a valid Pokemon name or ID number."}
               </p>
               {filteredOut && (

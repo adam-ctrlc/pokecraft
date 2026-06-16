@@ -168,7 +168,7 @@ export default function BattlePage() {
           onReorder={(from, to) => reorderTeam(side, from, to)}
         />
         <p className="mt-2 text-[9px] uppercase tracking-widest text-stone-600">
-          Drag to reorder — slot 1 leads
+          Drag to reorder - slot 1 leads
         </p>
 
         <button
@@ -208,7 +208,7 @@ export default function BattlePage() {
         </h1>
         <p className="text-stone-400 text-sm md:text-base max-w-xl mx-auto">
           Build a team, build an enemy (or auto counter-pick), then fight. Type
-          counters and higher base stats decide each duel — last team standing
+          counters and higher base stats decide each duel - last team standing
           wins.
         </p>
       </header>
