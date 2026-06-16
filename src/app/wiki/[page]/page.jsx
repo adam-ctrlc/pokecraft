@@ -1,4 +1,4 @@
-import WikiClient from "../WikiClient";
+import WikiClient from "@/app/wiki/WikiClient";
 
 export function generateStaticParams() {
   return [];

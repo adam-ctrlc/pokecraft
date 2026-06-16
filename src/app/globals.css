@@ -20,6 +20,96 @@ body {
   image-rendering: pixelated;
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: scroll-x 30s linear infinite;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
+
+.animate-drift {
+  animation: drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-12px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(380px) translateX(24px) rotate(180deg);
+    opacity: 0.85;
+  }
+}
+
+.animate-fall {
+  animation: fall linear infinite;
+}
+
+@keyframes fall-straight {
+  0% {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(390px);
+    opacity: 0.7;
+  }
+}
+
+.animate-rain {
+  animation: fall-straight linear infinite;
+}
+
+/* Classic Pokemon logo font — yellow fill with blue outline */
+.font-pokemon {
+  font-family: "Pokemon Solid", var(--font-minecraft), sans-serif;
+  color: #ffcb05;
+  -webkit-text-stroke: 2px #2a75bb;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 #003a70;
+  letter-spacing: 0.04em;
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }

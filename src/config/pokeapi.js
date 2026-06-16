@@ -1,3 +1,4 @@
+// PokeAPI endpoint + shared request config.
 export const POKEAPI_BASE = "https://pokeapi.co/api/v2";
 
 export const corsHeaders = {

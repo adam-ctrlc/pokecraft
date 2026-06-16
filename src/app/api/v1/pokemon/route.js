@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
-import { POKEAPI_BASE } from "../../config";
+import { POKEAPI_BASE } from "@/config/pokeapi";
+import { officialSprite, pixelSprite } from "@/config/sprites";
+import { idFromUrl } from "@/utils/pokeapi";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -12,59 +13,66 @@ export async function GET(request) {
     let results = [];
     let next = null;
     let previous = null;
-
     let count = 0;
 
     if (search) {
-      // Direct look up by name/id
       try {
-        const response = await axios.get(
-          `${POKEAPI_BASE}/pokemon/${search.toLowerCase()}`
+        const res = await fetch(
+          `${POKEAPI_BASE}/pokemon/${search.toLowerCase()}`,
+          { cache: "force-cache" }
         );
-        const pokemon = response.data;
-        results = [
-          {
-            name: pokemon.name,
-            url: `${POKEAPI_BASE}/pokemon/${pokemon.id}/`,
-          },
-        ];
+        if (!res.ok) throw new Error();
+        const pokemon = await res.json();
+        results = [{ name: pokemon.name, url: `${POKEAPI_BASE}/pokemon/${pokemon.id}/` }];
         count = 1;
       } catch {
         results = [];
         count = 0;
       }
     } else {
-      // List mode
-      const response = await axios.get(`${POKEAPI_BASE}/pokemon`, {
-        params: { limit, offset },
-      });
-      results = response.data.results;
-      count = response.data.count;
-      next = response.data.next;
-      previous = response.data.previous;
+      const res = await fetch(
+        `${POKEAPI_BASE}/pokemon?limit=${limit}&offset=${offset}`,
+        { cache: "force-cache" }
+      );
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      results = data.results;
+      count = data.count;
+      next = data.next;
+      previous = data.previous;
     }
 
-    // Enrich data
-    const enrichedResults = results.map((pokemon) => {
-      const id = pokemon.url.split("/").filter(Boolean).pop();
-      return {
-        ...pokemon,
-        id,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-        pixelImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/${id}.png`,
-      };
-    });
+    const enrichedResults = await Promise.all(
+      results.map(async (pokemon) => {
+        const id = idFromUrl(pokemon.url);
 
-    return NextResponse.json({
-      count,
-      next,
-      previous,
-      results: enrichedResults,
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch Pokemon" },
-      { status: 500 }
+        // Pull lightweight detail for card info (types). Fail soft so the
+        // list still renders if a single lookup errors out.
+        let types = [];
+        try {
+          const detailRes = await fetch(`${POKEAPI_BASE}/pokemon/${id}`, {
+            cache: "force-cache",
+          });
+          if (detailRes.ok) {
+            const detail = await detailRes.json();
+            types = detail.types.map((t) => t.type.name);
+          }
+        } catch {
+          types = [];
+        }
+
+        return {
+          ...pokemon,
+          id,
+          types,
+          image: officialSprite(id),
+          pixelImage: pixelSprite(id),
+        };
+      })
     );
+
+    return NextResponse.json({ count, next, previous, results: enrichedResults });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to fetch Pokemon" }, { status: 500 });
   }
 }
