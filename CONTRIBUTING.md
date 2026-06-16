@@ -7,8 +7,8 @@ Thanks for your interest in contributing! This document explains how the project
 This project uses [pnpm](https://pnpm.io/).
 
 ```bash
-git clone https://github.com/adam-ctrlc/pokemon-fullstack.git
-cd pokemon-fullstack
+git clone https://github.com/adam-ctrlc/pokecraft.git
+cd pokecraft
 pnpm install
 pnpm dev
 ```

@@ -78,8 +78,8 @@ This project uses [pnpm](https://pnpm.io/).
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/adam-ctrlc/pokemon-fullstack.git
-    cd pokemon-fullstack
+    git clone https://github.com/adam-ctrlc/pokecraft.git
+    cd pokecraft
     ```
 
 2.  Install dependencies (the `sharp` / `unrs-resolver` build scripts are pre-approved in `pnpm-workspace.yaml`):
