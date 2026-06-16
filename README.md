@@ -4,36 +4,76 @@
 
 ## Overview
 
-PokeCraft Wiki is a modern, responsive web application that serves as a comprehensive database for the Pokemon universe. Designed with a unique "blocky" pixel aesthetic inspired by voxel art and the classic handheld games, it lets users explore Pokemon species, statistics, types, and evolutions — and even pit teams against each other in an animated battle arena.
+PokeCraft Wiki is a Next.js web app that serves as a comprehensive, pixel-styled database for the Pokemon universe. Designed with a "blocky" voxel/retro-handheld aesthetic, it lets users browse and search the full national dex, dig into per-Pokemon detail (stats, abilities, evolutions, type matchups), and assemble teams to fight in an animated battle arena with selectable pixel-art biomes.
 
-This project focuses on delivering a high-quality frontend experience, leveraging the power of Next.js and Tailwind CSS to create a fast, dynamic, and visually engaging interface.
+All Pokemon data comes from the [PokeAPI](https://pokeapi.co/), proxied and cached through the app's own API routes.
 
 ## Features
 
-- **Pokedex Wiki** — browse the full national dex with pagination, search by name/ID, and filter by **type** and **region/generation**. Cards show types, generation, and region at a glance.
-- **3D / Pixel sprite toggle** — switch between animated "3D" Showdown sprites and static pixel sprites anywhere in the app. Your choice persists across pages via `sessionStorage`.
-- **Detailed Pokemon pages** — stats (pixel segment bars), abilities, height/weight, a retro Pokedex entry panel, evolution chain, and a Combat Analysis breakdown of type matchups.
-- **Custom cry player** — a pixel-styled audio player with a waveform progress bar for each Pokemon's cry.
-- **Battle Arena (`/battle`)** — build a team (1v1, 3v3, or 6v6), drag to reorder, and auto-fill or **auto counter-pick** an enemy team based on type weaknesses. Battles resolve as a sequential bracket (type counters + base stats), then play out in an **animated pixel battle scene** with HP bars, fainting, and a turn-by-turn dialog.
-- **Selectable battle scenery** — 15 hand-built pixel biomes (Meadow, Night, Snow, Desert, Sakura, Volcano, Cosmic, Rainy, and more) with themed skies, foliage, celestial bodies, and weather particles.
+### Pokedex Wiki (`/wiki/[page]`)
+
+- Paginated grid of the full national dex (20 per page) with name/ID search.
+- **Type filter** and **region/generation filter** — custom pixel-themed dropdowns. Selections persist across pagination and navigation via `sessionStorage`.
+- Cards display each Pokemon's **types**, **generation** (I–IX), and **region** (Kanto–Paldea).
+
+### Pokemon detail (`/pokemon/[id]`)
+
+- Tabbed layout: **About** (Pokedex entry, height/weight, abilities), **Stats** (pixel segmented base-stat bars + total), and **Evolution** (clickable evolution chain).
+- **Combat Analysis** — weaknesses and strengths broken down by type, each with example Pokemon.
+- **Custom cry player** — a pixel-styled audio player with a waveform progress bar.
+- Skeleton loading states (no spinners).
+
+### 3D / Pixel sprite toggle
+
+- Switch globally between animated "3D" Showdown sprites and static pixel sprites. The choice is shared live across the wiki cards, detail sprite, evolution chain, and combat-analysis examples, and persisted in `sessionStorage`.
+
+### Battle Arena (`/battle`)
+
+- Build a team at **1v1, 3v3, or 6v6**. Add Pokemon via a searchable picker, **drag to reorder** (slot 1 leads), and remove individually.
+- **Auto Pick** / **Auto Counter-Pick** — the system fills a team by choosing Pokemon whose types counter the opposing team (falling back to random), and is re-rollable.
+- Battles resolve as a **sequential bracket**: leads fight, the loser is eliminated, the winner stays. Each duel is decided by **type effectiveness + base-stat total**, and the log explains *why* ("super-effective", "higher base stats", etc.).
+- The fight plays out **inline** as an **animated pixel battle scene** — back/front sprites on grassy platforms, HP bars, fainting animations, party trays showing status, and a click-through dialog box.
+- **15 selectable biomes** (Meadow, Morning, Night, Snow, Desert, Sakura, Autumn, Sunset, Twilight, Volcano, Swamp, Beach, Cave, Cosmic, Rainy) — each with themed skies, foliage (trees/pines/cacti/palms/rocks/dead trees), a sun or moon, stars, and weather particles (snow, petals, embers, rain).
+
+## Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Landing page with hero, feature highlights, and sprite marquee |
+| `/wiki` → `/wiki/1` | Paginated, filterable Pokedex |
+| `/pokemon/[id]` | Pokemon detail page |
+| `/battle` | Team builder + battle arena |
+| `/api/v1/pokemon` | List/search (enriched with types) |
+| `/api/v1/pokemon/[id]` | Full detail (stats, evolution, computed type matchups) |
+| `/api/v1/type/[name]` | Type data |
 
 ## Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) (App Router, React Compiler)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom utility classes for the "blocky" aesthetic.
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Data Fetching**: [SWR](https://swr.vercel.app/) for caching, revalidation, and performant API interactions (using the native `fetch` API).
-- **API Integration**: Internal API routes proxy and cache the [PokeAPI](https://pokeapi.co/).
-- **Package Manager**: [pnpm](https://pnpm.io/)
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, Turbopack, React Compiler) with React 19.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4, `Press Start 2P` + Pokemon-Solid fonts, and a custom blocky/pixel design system.
+- **Icons**: [Lucide React](https://lucide.dev/).
+- **Data Fetching**: [SWR](https://swr.vercel.app/) on the client; native `fetch` server-side with `force-cache` (no axios).
+- **Data Source**: [PokeAPI](https://pokeapi.co/), via internal API routes.
+- **Package Manager**: [pnpm](https://pnpm.io/).
 
 ## Project Structure
 
-- `src/app` — App Router pages (`/`, `/wiki/[page]`, `/pokemon/[id]`, `/battle`) and API routes under `src/app/api/v1`.
-- `src/components` — shared UI (header, cards, selects).
-- `src/config` — centralized config: PokeAPI base, sprite URLs, and battle biomes.
-- `src/utils` — helpers and hooks (type colors, generations, battle logic, sprite-view/session hooks).
+```
+src/
+├── app/
+│   ├── page.jsx                 # Home
+│   ├── wiki/[page]/             # Paginated Pokedex (WikiClient)
+│   ├── pokemon/[id]/            # Detail page + _components (CryPlayer, TypeRelations)
+│   ├── battle/                  # Battle Arena + _components (scene, field, trays, pickers, biome select)
+│   └── api/v1/                  # Internal API routes that proxy + cache PokeAPI
+├── components/                  # Shared UI (Header, PokemonCard, Select, *Select, SpriteToggle)
+├── config/                      # pokeapi.js, sprites.js, biomes.js — all external URLs/assets live here
+└── utils/                       # Helpers + hooks (typeColors, generation, battle, pokeapi, fetcher, hooks)
+```
 
 ## Getting Started
+
+This project uses [pnpm](https://pnpm.io/).
 
 1.  Clone the repository:
 
@@ -42,7 +82,7 @@ This project focuses on delivering a high-quality frontend experience, leveragin
     cd pokemon-fullstack
     ```
 
-2.  Install dependencies:
+2.  Install dependencies (the `sharp` / `unrs-resolver` build scripts are pre-approved in `pnpm-workspace.yaml`):
 
     ```bash
     pnpm install
@@ -54,4 +94,17 @@ This project focuses on delivering a high-quality frontend experience, leveragin
     pnpm dev
     ```
 
-4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4.  Open [http://localhost:3000](http://localhost:3000) with your browser.
+
+### Scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the dev server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Run ESLint (Next core-web-vitals + React Compiler) |
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for project conventions, structure, and how to add things like new biomes or filters.
